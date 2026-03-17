@@ -1,15 +1,26 @@
-import { Sticker } from "./components/Sticker.jsx";
-import StickerList from "./components/StickerList.jsx";
-import ChosenSticker from "./components/ChosenSticker.jsx";
+import React, { Component } from "react";
+import StickerList from "./components/StickerList/StickerList.jsx";
+import Choice from "./components/Choice/Choice.jsx";
+import stickersData from "./stickers.json";
 
-import "./App.css";
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedSticker: null,
+    };
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <StickerList />
-    </div>
-  );
+  handleSelect = (label) => {
+    this.setState({ selectedSticker: label });
+  };
+
+  render() {
+    return (
+      <div>
+        <StickerList stickers={stickersData} onSelect={this.handleSelect} />
+        <Choice selected={this.state.selectedSticker} />
+      </div>
+    );
+  }
 }
-
-export default App;
